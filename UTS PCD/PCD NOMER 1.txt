@@ -1,0 +1,28 @@
+Penjelasan singkat dari hasil (analisa sesuai permintaan)
+1. Perbedaan persebaran nilai keabuan (histogram) antara ketiga citra
+
+Citra asli: histogram menunjukkan konsentrasi pixel pada rentang gelap-sedang (mis. 10–160) dengan puncak di area gelap dan tengah. Ada spike di nilai ekstrem (0 atau 255) jika beberapa piksel sangat gelap/terang. Statistik: mean ≈ 91.5, std ≈ 49.2.
+
+Citra negatif (G = 255 − F): histogram adalah cermin horizontal dari histogram asli: nilai yang banyak pada level rendah di asli muncul banyak pada level tinggi di negatif, dan sebaliknya. Mean bergeser ke arah komplement (dalam demo: mean ≈ 163.46). Sebaran standar tetap sama (std sama) karena transformasi adalah linear inver yang mempertahankan jarak relatif antar nilai.
+
+Citra logaritmik (G = c·log(1+F)): histogram memadatkan rentang nilai gelap/menengah dan memperluas rentang nilai gelap menjadi lebih menonjol di sisi rendah atau tinggi tergantung parameter c. Untuk citra yang punya detail penting di bagian gelap, transformasi log menekan nilai besar (terang) dan memperbesar nilai kecil (gelap) secara non-linear. Hasilnya mean dan distribusi berubah (dalam demo mean ≈ 197.5 dan std turun ≈ 37.3), menunjukkan klasterisasi nilai ke area tertentu (lebih banyak piksel berada di rentang tinggi setelah normalisasi log dengan c yang dipilih).
+
+Grafis yang dihasilkan memperlihatkan:
+
+Negatif = pembalikan histogram (mirror).
+
+Logaritmik = pemindahan dan kompresi/ekspansi non-linear: banyak bin histogram menjadi lebih sering di rentang atas (tergantung c dan F.max).
+
+2. Kapan transformasi logaritmik lebih bermanfaat dibanding negatif?
+
+Negatif berguna jika Anda membutuhkan "invers" visual (mis. untuk membuat detail pada area terang menjadi gelap sehingga lebih mudah dilihat), atau untuk efek khusus (fotografi film atau untuk mempermudah visual inspeksi pada radiografi film). Negatif tidak mengubah kontras relatif antar nilai (hanya membalik).
+
+Logaritmik berguna jika citra memiliki rentang dinamis besar dan Anda ingin meningkatkan detail pada daerah gelap tanpa membuat area terang menjadi terlalu dominan. Contoh kasus:
+
+Citra astronomi (bintang kecil di latar gelap) atau citra medis dengan detail halus di daerah gelap.
+
+Ketika intensitas tinggi sangat dominan sehingga detail pada intensitas rendah teredam — log memperbesar nilai kecil (meningkatkan visibilitas detail gelap) dan menekan nilai besar.
+
+Untuk mengkompres rentang dinamis sebelum pemrosesan lebih lanjut (mis. sebelum histogram equalization atau deteksi fitur).
+
+Singkatnya: gunakan logaritmik ketika targetnya menonjolkan detail di area gelap / memperbaiki visibilitas pada nilai rendah dan ketika data memiliki variasi besar di sisi tinggi; gunakan negatif ketika Anda hanya perlu pembalikan tonal tanpa mengubah kontras relatif.

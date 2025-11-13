@@ -1,0 +1,28 @@
+Penjelasan dan Analisis
+1. Perbandingan Visual
+Filter	Efek Visual	Tujuan
+LPF (Low Pass Filter)	Gambar menjadi lebih halus (blur). Detail kecil dan noise menghilang.	Mengurangi noise atau detail tajam.
+HPF (High Pass Filter)	Gambar menjadi tegas, menonjolkan tepi dan garis batas objek.	Deteksi tepi (edge detection).
+BPF (Band Pass Filter)	Gambar lebih tajam tapi tetap mempertahankan bentuk asli.	Penajaman (sharpening).
+2. Perbandingan Nilai Piksel Rata-rata
+
+Biasanya:
+
+LPF memiliki mean yang hampir sama atau sedikit menurun (karena meratakan nilai).
+
+HPF memiliki mean lebih rendah, karena menghasilkan nilai positif & negatif yang saling meniadakan (deteksi tepi).
+
+BPF memiliki mean mendekati citra asli, tetapi kontras meningkat (karena mempertajam tepi).
+
+3. Hubungan Domain Spasial dan Domain Frekuensi
+Jenis Filter	Domain Spasial	Domain Frekuensi
+LPF	Mengambil rata-rata tetangga piksel (menyebarkan nilai)	Menahan frekuensi rendah, membuang frekuensi tinggi (detail halus).
+HPF	Menghitung perbedaan antar piksel tetangga	Menahan frekuensi tinggi, membuang frekuensi rendah (background).
+BPF	Kombinasi LPF + HPF (menambah tepi tapi menjaga struktur)	Menyaring frekuensi menengah, mempertajam detail tanpa kehilangan bentuk utama.
+ Kesimpulan:
+
+LPF cocok untuk reduksi noise atau smoothing citra.
+
+HPF cocok untuk mendeteksi tepi atau fitur kontras tinggi.
+
+BPF cocok untuk penajaman (sharpening) agar citra lebih jelas tanpa kehilangan bentuk.
